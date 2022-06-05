@@ -27,18 +27,18 @@ LIB_DEBUG = $(LIB)
 LDFLAGS_DEBUG = $(LDFLAGS) -static-libstdc++ -static-libgcc -static -lstdc++fs -pthread
 OBJDIR_DEBUG = obj/Debug
 DEP_DEBUG = 
-OUT_DEBUG = bin/Debug/liblibsearch.a
+OUT_DEBUG = bin/Debug/libsearch.a
 
 INC_RELEASE = $(INC)
-CFLAGS_RELEASE = $(CFLAGS) -O2
+CFLAGS_RELEASE = $(CFLAGS) -O2 -std=gnu++17
 RESINC_RELEASE = $(RESINC)
 RCFLAGS_RELEASE = $(RCFLAGS)
 LIBDIR_RELEASE = $(LIBDIR)
 LIB_RELEASE = $(LIB)
-LDFLAGS_RELEASE = $(LDFLAGS) -s -lstdc++fs -pthread
+LDFLAGS_RELEASE = $(LDFLAGS) -s -static-libstdc++ -static-libgcc -static -lstdc++fs -pthread
 OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
-OUT_RELEASE = bin/Release/libsearch
+OUT_RELEASE = bin/Release/libsearch.a
 
 OBJ_DEBUG = $(OBJDIR_DEBUG)/libsearch.o
 
@@ -76,10 +76,10 @@ after_release:
 release: before_release out_release after_release
 
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
-	$(LD) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE)  $(LDFLAGS_RELEASE) $(LIB_RELEASE)
-
 $(OBJDIR_RELEASE)/libsearch.o: libsearch.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c libsearch.cpp -o $(OBJDIR_RELEASE)/libsearch.o
+
+	$(AR) rcs $(OUT_RELEASE) $(OBJ_RELEASE)
 
 clean_release: 
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)

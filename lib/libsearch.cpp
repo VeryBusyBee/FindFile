@@ -5,7 +5,6 @@
 #include <mutex>
 #include <condition_variable>
 #include <experimental/filesystem>
-#include "libsearch.hpp"
 
 using std::cout; using std::cin;
 using std::endl; using std::string;
